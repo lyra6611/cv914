@@ -1,0 +1,311 @@
+import { portfolioData } from './content.js';
+
+const app = document.querySelector('#app');
+
+const projectCategories = ['all', ...new Set(portfolioData.projects.items.map((item) => item.category))];
+let activeCategory = 'all';
+
+const renderHeader = () => `
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#home" class="brand" aria-label="返回首页">
+        <span class="brand-mark">L</span>
+        <span>${portfolioData.site.title}</span>
+      </a>
+      <nav class="nav" aria-label="主导航">
+        ${portfolioData.nav
+          .map(
+            (item) => `
+              <a href="${item.href}">${item.label}</a>
+            `
+          )
+          .join('')}
+      </nav>
+      <a class="header-cta" href="${portfolioData.site.resumeLink}">${portfolioData.site.cvText}</a>
+    </div>
+  </header>
+`;
+
+const renderHero = () => `
+  <section id="home" class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow">${portfolioData.hero.tag}</div>
+        <h1>
+          Hi, I'm <span class="highlight">${portfolioData.hero.name}</span><br />
+          ${portfolioData.hero.role}
+        </h1>
+        <p>${portfolioData.hero.intro}</p>
+        <div class="hero-actions">
+          <a class="primary-btn" href="${portfolioData.hero.primaryAction.href}">${portfolioData.hero.primaryAction.label}</a>
+          <a class="secondary-btn" href="${portfolioData.hero.secondaryAction.href}">${portfolioData.hero.secondaryAction.label}</a>
+        </div>
+        <div class="hero-stats">
+          ${portfolioData.hero.stats
+            .map(
+              (stat) => `
+                <div class="stat-card">
+                  <strong>${stat.value}</strong>
+                  <span>${stat.label}</span>
+                </div>
+              `
+            )
+            .join('')}
+        </div>
+      </div>
+      <div class="profile-panel">
+        <div class="profile-visual" aria-hidden="true"></div>
+        <div class="profile-meta">
+          <h3>${portfolioData.hero.name}</h3>
+          <p>${portfolioData.hero.role}</p>
+          <ul class="profile-list">
+            <li><span>城市</span><span>${portfolioData.site.location}</span></li>
+            <li><span>邮箱</span><span>${portfolioData.site.email}</span></li>
+            <li><span>电话</span><span>${portfolioData.site.phone}</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+`;
+
+const renderAbout = () => `
+  <section id="about" class="section">
+    <div class="container">
+      <div class="section-title">
+        <h2>${portfolioData.about.heading}</h2>
+        <p>${portfolioData.site.subtitle}</p>
+      </div>
+      <div class="about-grid">
+        <div class="panel about-copy">
+          <p>${portfolioData.about.summary}</p>
+          ${portfolioData.about.details
+            .map(
+              (item) => `
+                <p>${item}</p>
+              `
+            )
+            .join('')}
+          <div class="highlight-list">
+            ${portfolioData.about.highlights
+              .map(
+                (item) => `
+                  <span>${item}</span>
+                `
+              )
+              .join('')}
+          </div>
+        </div>
+        <div class="panel">
+          <div class="resume-layout">
+            <div>
+              <h3>工作方向</h3>
+              <div class="timeline">
+                ${portfolioData.resume.experience
+                  .map(
+                    (item) => `
+                      <div class="timeline-item">
+                        <div class="period">${item.period}</div>
+                        <h3>${item.title}</h3>
+                        <div class="company">${item.company}</div>
+                        <p>${item.description}</p>
+                      </div>
+                    `
+                  )
+                  .join('')}
+              </div>
+            </div>
+            <div>
+              <h3>教育背景</h3>
+              <div class="timeline">
+                ${portfolioData.resume.education
+                  .map(
+                    (item) => `
+                      <div class="timeline-item">
+                        <div class="period">${item.period}</div>
+                        <h3>${item.title}</h3>
+                        <div class="company">${item.school}</div>
+                        <p>${item.description}</p>
+                      </div>
+                    `
+                  )
+                  .join('')}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+`;
+
+const renderSkills = () => `
+  <section id="skills" class="section">
+    <div class="container">
+      <div class="section-title">
+        <h2>${portfolioData.skills.heading}</h2>
+      </div>
+      <div class="skills-grid">
+        ${portfolioData.skills.categories
+          .map(
+            (category) => `
+              <div class="skill-card">
+                <h3>${category.title}</h3>
+                <ul class="skill-list">
+                  ${category.items
+                    .map(
+                      (skill) => `
+                        <li>${skill}</li>
+                      `
+                    )
+                    .join('')}
+                </ul>
+              </div>
+            `
+          )
+          .join('')}
+      </div>
+    </div>
+  </section>
+`;
+
+const renderProjects = () => {
+  const filteredProjects =
+    activeCategory === 'all'
+      ? portfolioData.projects.items
+      : portfolioData.projects.items.filter((item) => item.category === activeCategory);
+
+  return `
+    <section id="projects" class="section">
+      <div class="container">
+        <div class="section-title">
+          <h2>${portfolioData.projects.heading}</h2>
+          <p>${portfolioData.projects.intro}</p>
+        </div>
+
+        <div class="projects-toolbar">
+          <div class="filters" aria-label="作品筛选">
+            ${projectCategories
+              .map(
+                (category) => `
+                  <button
+                    class="filter-btn ${category === activeCategory ? 'active' : ''}"
+                    data-category="${category}"
+                    type="button"
+                  >
+                    ${category === 'all' ? '全部' : category}
+                  </button>
+                `
+              )
+              .join('')}
+          </div>
+        </div>
+
+        <div class="projects-grid">
+          ${filteredProjects
+            .map(
+              (project) => `
+                <article class="project-card">
+                  <div class="project-cover" aria-hidden="true"></div>
+                  <div class="project-body">
+                    <span class="project-tag">${project.category}</span>
+                    <h3>${project.title}</h3>
+                    <p>${project.summary}</p>
+                    <div class="project-tags">
+                      ${project.tags
+                        .map(
+                          (tag) => `
+                            <span>${tag}</span>
+                          `
+                        )
+                        .join('')}
+                    </div>
+                    <a class="project-link" href="${project.link}">查看详情 →</a>
+                  </div>
+                </article>
+              `
+            )
+            .join('')}
+        </div>
+      </div>
+    </section>
+  `;
+};
+
+const renderAchievements = () => `
+  <section class="section">
+    <div class="container">
+      <div class="section-title">
+        <h2>${portfolioData.achievements.heading}</h2>
+      </div>
+      <ul class="achievements-list">
+        ${portfolioData.achievements.items
+          .map(
+            (item) => `
+              <li>${item}</li>
+            `
+          )
+          .join('')}
+      </ul>
+    </div>
+  </section>
+`;
+
+const renderContact = () => `
+  <section id="contact" class="contact-section">
+    <div class="container contact-grid">
+      <div class="contact-card">
+        <div class="section-title">
+          <h2>${portfolioData.contact.heading}</h2>
+        </div>
+        <p>${portfolioData.contact.text}</p>
+      </div>
+      <div class="contact-card">
+        <ul class="contact-list">
+          ${portfolioData.contact.channels
+            .map(
+              (channel) => `
+                <li>
+                  <a href="${channel.href}" target="_blank" rel="noreferrer">
+                    <span>${channel.label}</span>
+                    <span>${channel.value}</span>
+                  </a>
+                </li>
+              `
+            )
+            .join('')}
+        </ul>
+      </div>
+    </div>
+  </section>
+`;
+
+const renderFooter = () => `
+  <footer class="site-footer">
+    <div class="container">© 2026 ${portfolioData.site.title}. All rights reserved.</div>
+  </footer>
+`;
+
+const renderApp = () => {
+  app.innerHTML = `
+    ${renderHeader()}
+    <main>
+      ${renderHero()}
+      ${renderAbout()}
+      ${renderSkills()}
+      ${renderProjects()}
+      ${renderAchievements()}
+      ${renderContact()}
+    </main>
+    ${renderFooter()}
+  `;
+
+  document.querySelectorAll('.filter-btn').forEach((button) => {
+    button.addEventListener('click', () => {
+      activeCategory = button.dataset.category;
+      renderApp();
+    });
+  });
+};
+
+renderApp();
