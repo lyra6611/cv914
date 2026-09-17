@@ -97,41 +97,60 @@ const renderAbout = () => `
           </div>
         </div>
         <div class="panel">
-          <div class="resume-layout">
-            <div>
-              <h3>工作方向</h3>
-              <div class="timeline">
-                ${portfolioData.resume.experience
-                  .map(
-                    (item) => `
-                      <div class="timeline-item">
-                        <div class="period">${item.period}</div>
-                        <h3>${item.title}</h3>
-                        <div class="company">${item.company}</div>
-                        <p>${item.description}</p>
-                      </div>
-                    `
-                  )
-                  .join('')}
-              </div>
-            </div>
-            <div>
-              <h3>教育背景</h3>
-              <div class="timeline">
-                ${portfolioData.resume.education
-                  .map(
-                    (item) => `
-                      <div class="timeline-item">
-                        <div class="period">${item.period}</div>
-                        <h3>${item.title}</h3>
-                        <div class="company">${item.school}</div>
-                        <p>${item.description}</p>
-                      </div>
-                    `
-                  )
-                  .join('')}
-              </div>
-            </div>
+          <div class="mini-block">
+            <div class="mini-block-title">我的核心价值</div>
+            <ul class="value-list">
+              <li>把复杂产品需求拆解成清晰的交付目标。</li>
+              <li>兼顾设计表达与前端实现，让方案更容易落地。</li>
+              <li>持续收集用户反馈，推动版本迭代与业务成长。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+`;
+
+const renderResume = () => `
+  <section id="resume" class="section">
+    <div class="container">
+      <div class="section-title">
+        <h2>${portfolioData.resume.heading}</h2>
+        <p>${portfolioData.resume.intro}</p>
+      </div>
+      <div class="resume-layout">
+        <div class="panel">
+          <h3>工作经历</h3>
+          <div class="timeline">
+            ${portfolioData.resume.experience
+              .map(
+                (item) => `
+                  <div class="timeline-item">
+                    <div class="period">${item.period}</div>
+                    <h3>${item.title}</h3>
+                    <div class="company">${item.company}</div>
+                    <p>${item.description}</p>
+                  </div>
+                `
+              )
+              .join('')}
+          </div>
+        </div>
+        <div class="panel">
+          <h3>教育背景</h3>
+          <div class="timeline">
+            ${portfolioData.resume.education
+              .map(
+                (item) => `
+                  <div class="timeline-item">
+                    <div class="period">${item.period}</div>
+                    <h3>${item.title}</h3>
+                    <div class="company">${item.school}</div>
+                    <p>${item.description}</p>
+                  </div>
+                `
+              )
+              .join('')}
           </div>
         </div>
       </div>
@@ -161,6 +180,39 @@ const renderSkills = () => `
                     .join('')}
                 </ul>
               </div>
+            `
+          )
+          .join('')}
+      </div>
+    </div>
+  </section>
+`;
+
+const renderServices = () => `
+  <section id="services" class="section">
+    <div class="container">
+      <div class="section-title">
+        <h2>${portfolioData.services.heading}</h2>
+        <p>${portfolioData.services.intro}</p>
+      </div>
+      <div class="services-grid">
+        ${portfolioData.services.items
+          .map(
+            (service) => `
+              <article class="service-card">
+                <div class="service-icon" aria-hidden="true">✦</div>
+                <h3>${service.title}</h3>
+                <p>${service.description}</p>
+                <div class="service-tags">
+                  ${service.tags
+                    .map(
+                      (tag) => `
+                        <span>${tag}</span>
+                      `
+                    )
+                    .join('')}
+                </div>
+              </article>
             `
           )
           .join('')}
@@ -211,6 +263,15 @@ const renderProjects = () => {
                     <span class="project-tag">${project.category}</span>
                     <h3>${project.title}</h3>
                     <p>${project.summary}</p>
+                    <div class="project-meta">
+                      ${project.metrics
+                        .map(
+                          (item) => `
+                            <span>${item}</span>
+                          `
+                        )
+                        .join('')}
+                    </div>
                     <div class="project-tags">
                       ${project.tags
                         .map(
@@ -233,10 +294,11 @@ const renderProjects = () => {
 };
 
 const renderAchievements = () => `
-  <section class="section">
+  <section id="highlights" class="section">
     <div class="container">
       <div class="section-title">
         <h2>${portfolioData.achievements.heading}</h2>
+        <p>${portfolioData.achievements.intro}</p>
       </div>
       <ul class="achievements-list">
         ${portfolioData.achievements.items
@@ -292,7 +354,9 @@ const renderApp = () => {
     <main>
       ${renderHero()}
       ${renderAbout()}
+      ${renderResume()}
       ${renderSkills()}
+      ${renderServices()}
       ${renderProjects()}
       ${renderAchievements()}
       ${renderContact()}

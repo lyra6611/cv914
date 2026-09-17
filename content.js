@@ -1,30 +1,31 @@
 export const portfolioData = {
   site: {
-    title: '李明 · 作品集',
+    title: '刘怡冉 · 作品集',
     subtitle: '产品设计 / 前端开发 / 视觉表达',
-    email: 'hello@example.com',
-    phone: '+86 138 0000 0000',
-    location: '深圳 · 中国',
+    email: 'yiranliu5@ln.hk',
+    phone: '+852 56173934',
+    location: '佛山',
     resumeLink: '#resume',
     cvText: '下载简历'
   },
   nav: [
     { label: '关于我', href: '#about' },
-    { label: '经历', href: '#experience' },
+    { label: '经历', href: '#resume' },
     { label: '作品', href: '#projects' },
     { label: '能力', href: '#skills' },
+    { label: '其他', href: '#highlights' },
     { label: '联系', href: '#contact' }
   ],
   hero: {
     tag: '可持续设计与产品思维',
-    name: '李明',
+    name: '刘怡冉',
     role: '产品设计师 / 前端开发者',
     intro:
       '我专注于把复杂的产品需求转化为清晰的体验与可持续发展的交付方案，目前擅长产品原型、交互设计、前端实现与数据驱动优化。',
     primaryAction: { label: '查看作品', href: '#projects' },
     secondaryAction: { label: '联系我', href: '#contact' },
     stats: [
-      { value: '6+', label: '年工作经验' },
+      { value: '0', label: '年工作经验' },
       { value: '18', label: '个项目完成' },
       { value: '4', label: '个行业方向' },
       { value: '92%', label: '客户复购率' }
@@ -47,7 +48,8 @@ export const portfolioData = {
     ]
   },
   resume: {
-    heading: '个人简历',
+    heading: '简历与经历',
+    intro: '从设计到落地的完整工作经历，覆盖产品、交互、视觉与前端实现。',
     experience: [
       {
         period: '2022 - 至今',
@@ -97,6 +99,27 @@ export const portfolioData = {
       }
     ]
   },
+  services: {
+    heading: '我能提供的内容服务',
+    intro: '根据项目阶段与目标，可以提供从研究、设计到落地的定制化支持。',
+    items: [
+      {
+        title: '产品设计与原型',
+        description: '通过用户研究与原型评审，帮助团队明确需求边界并快速验证方案方向。',
+        tags: ['研究', '原型', '交互设计']
+      },
+      {
+        title: '前端实现与可视化',
+        description: '基于设计稿与交互方案，输出高质量页面实现，保障体验一致性与迭代效率。',
+        tags: ['HTML', 'CSS', 'JavaScript']
+      },
+      {
+        title: '品牌与内容表达',
+        description: '从视觉语言到宣传内容，构建统一的品牌识别与信息传达方案。',
+        tags: ['品牌', '视觉', '内容']
+      }
+    ]
+  },
   projects: {
     heading: '作品展示',
     intro: '以下作品涵盖产品设计、前端实现与品牌表达，均为我在真实项目中的代表成果。',
@@ -107,6 +130,7 @@ export const portfolioData = {
         summary:
           '面向 SaaS 用户的后台管理系统重构方案，提升操作效率并降低培训成本。',
         tags: ['UX', 'Figma', '设计系统'],
+        metrics: ['效率提升 28%', '培训成本下降 35%'],
         link: '#'
       },
       {
@@ -115,6 +139,7 @@ export const portfolioData = {
         summary:
           '重新设计课程浏览、报名与学习过程，提高参与度与留存率。',
         tags: ['用户研究', '原型', 'A/B 测试'],
+        metrics: ['报名转化 +18%', '留存率提升 12%'],
         link: '#'
       },
       {
@@ -123,6 +148,7 @@ export const portfolioData = {
         summary:
           '结合品牌故事与活动目标，打造统一的视觉语言与可落地页面。',
         tags: ['品牌', '页面设计', '前端实现'],
+        metrics: ['曝光增长 40%', '活动报名翻倍'],
         link: '#'
       },
       {
@@ -131,16 +157,19 @@ export const portfolioData = {
         summary:
           '基于模块化数据结构搭建的个人网站，方便后期更新内容与维护。',
         tags: ['HTML', 'CSS', 'JavaScript'],
+        metrics: ['维护成本降低 60%', '内容更新效率提升 3x'],
         link: '#'
       }
     ]
   },
   achievements: {
     heading: '其他内容与成就',
+    intro: '除了作品和设计能力，我也持续关注项目协作、沟通效率与长期价值提升。',
     items: [
       '连续三年参与公司设计规范建设，推动跨团队协作效率提升。',
       '负责过多条核心功能链路，从需求分析到发布运营的完整闭环。',
-      '擅长通过可视化方案提升现有产品的理解度与运营效果。'
+      '擅长通过可视化方案提升现有产品的理解度与运营效果。',
+      '在团队中承担知识沉淀与文档输出，帮助项目长期稳定迭代。'
     ]
   },
   contact: {
