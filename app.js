@@ -69,6 +69,27 @@ const renderHero = () => `
   </section>
 `;
 
+const renderStickySection = () => `
+  <section class="story-genesis">
+    <div class="sticky-wrap">
+      <div class="circle-ripple ripple1"></div>
+      <div class="circle-ripple ripple2"></div>
+
+      <div class="text title1">In The Beginning</div>
+      <div class="subtext sub1">God Created the Heavens</div>
+
+      <div class="light-glow light1"></div>
+      <div class="text title2">Let There Be Light</div>
+
+      <div class="land-shape land1"></div>
+      <div class="text title3">Dry Land</div>
+
+      <div class="moon-glow moon1"></div>
+      <div class="text title4">Moon &amp; Stars</div>
+    </div>
+  </section>
+`;
+
 const renderAbout = () => `
   <section id="about" class="section">
     <div class="container">
@@ -348,11 +369,46 @@ const renderFooter = () => `
   </footer>
 `;
 
+const setupScrollAnimations = () => {
+  if (!window.gsap || !window.ScrollTrigger) {
+    return;
+  }
+
+  window.gsap.registerPlugin(window.ScrollTrigger);
+  window.ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+
+  const stickySection = window.gsap.timeline({
+    scrollTrigger: {
+      trigger: '.story-genesis',
+      pin: '.sticky-wrap',
+      scrub: 1,
+      start: 'top top',
+      end: 'bottom bottom'
+    }
+  });
+
+  stickySection
+    .to('.ripple1', { scale: 3, opacity: 0.4, duration: 1 }, 0)
+    .to('.ripple2', { scale: 4, opacity: 0.2, duration: 1 }, 0.2)
+    .to('.title1', { opacity: 1, y: -30 }, 0)
+    .to('.sub1', { opacity: 1 }, 0.05)
+    .to(['.title1', '.sub1', '.ripple1', '.ripple2'], { opacity: 0 }, 0.15)
+    .to('.light1', { scale: 1.3, opacity: 0.8 }, 0.18)
+    .to('.title2', { opacity: 1 }, 0.2)
+    .to(['.light1', '.title2'], { opacity: 0 }, 0.3)
+    .to('.land1', { scale: 1, opacity: 0.7 }, 0.32)
+    .to('.title3', { opacity: 1 }, 0.35)
+    .to(['.land1', '.title3'], { opacity: 0 }, 0.45)
+    .to('.moon1', { scale: 1.2, opacity: 0.7 }, 0.48)
+    .to('.title4', { opacity: 1 }, 0.5);
+};
+
 const renderApp = () => {
   app.innerHTML = `
     ${renderHeader()}
     <main>
       ${renderHero()}
+      ${renderStickySection()}
       ${renderAbout()}
       ${renderResume()}
       ${renderSkills()}
@@ -370,6 +426,8 @@ const renderApp = () => {
       renderApp();
     });
   });
+
+  setupScrollAnimations();
 };
 
 renderApp();
