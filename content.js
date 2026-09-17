@@ -25,7 +25,7 @@ export const portfolioData = {
     primaryAction: { label: '查看作品', href: '#projects' },
     secondaryAction: { label: '联系我', href: '#contact' },
     stats: [
-      { value: '6+', label: '年工作经验' },
+      { value: '1+', label: '年工作经验' },
       { value: '24', label: '个项目经验' },
       { value: '5', label: '个行业方向' },
       { value: '90%', label: '用户满意度' }
